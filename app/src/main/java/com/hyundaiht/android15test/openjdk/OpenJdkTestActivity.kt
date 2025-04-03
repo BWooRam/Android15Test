@@ -1,10 +1,8 @@
 package com.hyundaiht.android15test.openjdk
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,6 +21,7 @@ import com.hyundaiht.android15test.ui.theme.Android15TestTheme
 
 class OpenJdkTestActivity : ComponentActivity() {
     private val tag = javaClass.simpleName
+    private val openJdkTest = OpenJdkTest()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,22 +36,120 @@ class OpenJdkTestActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(innerPadding)
                     ) {
-                        TextWithButton("dataSync 포그라운드 서비스 유형 동작 변경") {
+                        TextWithButton("testStringFormatIndexFail 테스트") {
+                            runCatching {
+                                openJdkTest.testStringFormatIndexFail("text")
+                            }.onSuccess { result ->
+                                Log.d(tag, "testStringFormatFail result = $result")
+                            }.onFailure { error ->
+                                Log.d(tag, "testStringFormatFail error = $error")
+                            }
                         }
                         Spacer(
                             Modifier
                                 .fillMaxWidth()
                                 .height(20.dp)
                         )
-                        TextWithButton("mediaProcessing 포그라운드 서비스 유형 추가") {
+                        TextWithButton("testStringFormatFlagFail1 테스트") {
+                            runCatching {
+                                openJdkTest.testStringFormatFlagFail1()
+                            }.onSuccess { result ->
+                                Log.d(tag, "testStringFormatFlagFail result = $result")
+                            }.onFailure { error ->
+                                Log.d(tag, "testStringFormatFlagFail error = $error")
+                            }
                         }
                         Spacer(
                             Modifier
                                 .fillMaxWidth()
                                 .height(20.dp)
                         )
-                        TextWithButton("앱이 SYSTEM_ALERT_WINDOW 권한을 보유한 동안 포그라운드 서비스 시작에 적용되는 제한사항") {
+                        TextWithButton("testStringFormatFlagFail2 테스트") {
+                            runCatching {
+                                openJdkTest.testStringFormatFlagFail2()
+                            }.onSuccess { result ->
+                                Log.d(tag, "testStringFormatFlagFail result = $result")
+                            }.onFailure { error ->
+                                Log.d(tag, "testStringFormatFlagFail error = $error")
+                            }
                         }
+                        Spacer(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(20.dp)
+                        )
+                        TextWithButton("testStringFormatFlagFail3 테스트") {
+                            runCatching {
+                                openJdkTest.testStringFormatFlagFail3()
+                            }.onSuccess { result ->
+                                Log.d(tag, "testStringFormatFlagFail result = $result")
+                            }.onFailure { error ->
+                                Log.d(tag, "testStringFormatFlagFail error = $error")
+                            }
+                        }
+                        Spacer(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(20.dp)
+                        )
+                        TextWithButton("testStringFormatFlagFail4 테스트") {
+                            runCatching {
+                                openJdkTest.testStringFormatFlagFail4()
+                            }.onSuccess { result ->
+                                Log.d(tag, "testStringFormatFlagFail result = $result")
+                            }.onFailure { error ->
+                                Log.d(tag, "testStringFormatFlagFail error = $error")
+                            }
+                        }
+                        Spacer(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(20.dp)
+                        )
+                        TextWithButton("testArraysAsListToArray 테스트") {
+                            runCatching {
+                                openJdkTest.testArraysAsListToArrayFail()
+                            }.onSuccess { result ->
+                                Log.d(tag, "testArraysAsListToArrayFail result = $result")
+                            }.onFailure { error ->
+                                Log.d(tag, "testArraysAsListToArrayFail error = $error")
+                            }
+
+                            runCatching {
+                                openJdkTest.testArraysAsListToArraySuccess()
+                            }.onSuccess { result ->
+                                Log.d(tag, "testArraysAsListToArraySuccess result = ${result.contentToString()}")
+                            }.onFailure { error ->
+                                Log.d(tag, "testArraysAsListToArraySuccess error = $error")
+                            }
+                        }
+                        Spacer(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(20.dp)
+                        )
+                        TextWithButton("testLocaleCodes 테스트") {
+                            runCatching {
+                                openJdkTest.testLocaleCodesFail()
+                            }.onSuccess { result ->
+                                Log.d(tag, "testLocaleCodesFail result = $result")
+                            }.onFailure { error ->
+                                Log.d(tag, "testLocaleCodesFail error = $error")
+                            }
+
+                            runCatching {
+                                openJdkTest.testLocaleCodesSuccess()
+                            }.onSuccess { result ->
+                                Log.d(tag, "testLocaleCodesSuccess result = $result")
+                            }.onFailure { error ->
+                                Log.d(tag, "testLocaleCodesSuccess error = $error")
+                            }
+                        }
+                        Spacer(
+                            Modifier
+                                .fillMaxWidth()
+                                .height(20.dp)
+                        )
                     }
                 }
             }

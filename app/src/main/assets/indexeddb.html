@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IndexedDB Demo</title>
+    <script>
+        let db;
+
+        // IndexedDB 초기화 함수
+        function initDB() {
+            const request = indexedDB.open("MyDatabase", 1);
+
+            request.onupgradeneeded = function (event) {
+                db = event.target.result;
+                if (!db.objectStoreNames.contains("users")) {
+                    const objectStore = db.createObjectStore("users", { keyPath: "id" });
+                    objectStore.createIndex("name", "name", { unique: false });
+                    objectStore.createIndex("age", "age", { unique: false });
+                    console.log("Database and object store created");
+                }
+            };
+
+            request.onsuccess = function (event) {
+                db = event.target.result;
+                console.log("Database initialized");
+            };
+
+            request.onerror = function (event) {
+                console.error("Error opening database:", event.target.error);
+            };
+        }
+
+        // 데이터 추가
+        function addUser() {
+            const name = document.getElementById("name").value;
+            const age = parseInt(document.getElementById("age").value);
+            const transaction = db.transaction(["users"], "readwrite");
+            const store = transaction.objectStore("users");
+
+            const request = store.add({ id: Date.now(), name: name, age: age });
+
+            request.onsuccess = function () {
+                alert("User added successfully!");
+            };
+
+            request.onerror = function (event) {
+                alert("Error adding user: " + event.target.error);
+            };
+        }
+
+        // 데이터 조회
+        function getUsers() {
+            const transaction = db.transaction(["users"], "readonly");
+            const store = transaction.objectStore("users");
+            const request = store.getAll();
+
+            request.onsuccess = function (event) {
+                const users = event.target.result;
+                console.log("Retrieved users:", users);
+                alert("Users: " + JSON.stringify(users));
+            };
+
+            request.onerror = function (event) {
+                alert("Error retrieving users: " + event.target.error);
+            };
+        }
+
+        // 데이터 삭제
+        function deleteUser() {
+            const transaction = db.transaction(["users"], "readwrite");
+            const store = transaction.objectStore("users");
+            const request = store.clear();
+
+            request.onsuccess = function () {
+                alert("All users deleted");
+            };
+        }
+    </script>
+</head>
+<body onload="initDB();">
+<h2>IndexedDB Demo</h2>
+<input id="name" placeholder="Name" type="text">
+<input id="age" placeholder="Age" type="number">
+<button onclick="addUser()">Add User</button>
+<button onclick="getUsers()">Show Users</button>
+<button onclick="deleteUser()">Delete All</button>
+</body>
+</html>

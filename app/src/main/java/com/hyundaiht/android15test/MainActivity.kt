@@ -14,7 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.hyundaiht.android15test.deprecation.DeprecationTestActivity
+import com.hyundaiht.android15test.dnd.DndTestActivity
 import com.hyundaiht.android15test.foreground.ForegroundTestActivity
+import com.hyundaiht.android15test.openjdk.OpenJdkTestActivity
 import com.hyundaiht.android15test.ui.TextWithButton
 import com.hyundaiht.android15test.ui.theme.Android15TestTheme
 
@@ -34,6 +37,18 @@ class MainActivity : ComponentActivity() {
                     ) {
                         TextWithButton("Foreground 테스트 페이지로 이동") {
                             startActivity(Intent(context, ForegroundTestActivity::class.java))
+                        }
+
+                        TextWithButton("OpenJdk 테스트 페이지로 이동") {
+                            startActivity(Intent(context, OpenJdkTestActivity::class.java))
+                        }
+
+                        TextWithButton("앱 방지 모드 테스트 페이지로 이동") {
+                            startActivity(Intent(context, DndTestActivity::class.java))
+                        }
+
+                        TextWithButton("지원 중단 테스트 페이지로 이동") {
+                            startActivity(Intent(context, DeprecationTestActivity::class.java))
                         }
                     }
                 }

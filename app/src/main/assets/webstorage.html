@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Storage Demo</title>
+    <script>
+        function saveLocalStorageData() {
+            const input = document.getElementById("inputData").value;
+            localStorage.setItem("myData", input);
+            alert("Data saved: " + input);
+        }
+
+        function loadLocalStorageData() {
+            const savedData = localStorage.getItem("myData");
+            if (savedData) {
+                alert("Loaded data: " + savedData);
+            } else {
+                alert("No data found");
+            }
+        }
+
+        function clearLocalStorageData() {
+            localStorage.removeItem("myData");
+            alert("Data cleared");
+        }
+
+        function saveSessionData() {
+            const input = document.getElementById("inputData").value;
+            sessionStorage.setItem("sessionData", input);
+            alert("Session data saved: " + input);
+        }
+
+        function loadSessionData() {
+            const savedData = sessionStorage.getItem("sessionData");
+            if (savedData) {
+                alert("Loaded session data: " + savedData);
+            } else {
+                alert("No session data found");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Web Storage Demo</h2>
+    <input type="text" id="inputData" placeholder="Enter some text">
+    <button onclick="saveLocalStorageData()">saveLocalStorageData</button>
+    <button onclick="loadLocalStorageData()">loadLocalStorageData</button>
+    <button onclick="clearLocalStorageData()">clearLocalStorageData</button>
+    <button onclick="saveSessionData()">saveSessionData</button>
+    <button onclick="loadSessionData()">loadSessionData</button>
+</body>
+</html>

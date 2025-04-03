@@ -3,45 +3,66 @@ package com.hyundaiht.android15test.openjdk;
 import android.util.Log;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.stream.IntStream;
 
 public class OpenJdkTest {
-    public void testStringFormatFail(Object text) {
-        String.format("%0$s", text);
+    public String testStringFormatIndexFail(Object text) {
+        return String.format("%0$s", text);
     }
 
-    public void testStringFormatSuccess(Object text) {
-        String.format("%1$s", text);
+    public String testStringFormatIndexSuccess(Object text) {
+        return String.format("%1$s", text);
     }
 
-    public void testArraysAsListToArrayFail() {
-        String[] arr = (String[]) Arrays.asList("a", "b").toArray();
+    public String testStringFormatFlagFail1() {
+        return String.format("%+-5d%n", 42);
     }
 
-    public void testArraysAsListToArraySuccess() {
-        String[] arr = (String[]) Arrays.asList("a", "b").toArray();
+    public String testStringFormatFlagFail2() {
+        return String.format("%0-5d%n", 42);
     }
 
-    public void testLocaleCodes() {
-        Locale oldHebrew = new Locale("iw"); // 구식 히브리어
-        Locale newHebrew = new Locale("he"); // 표준 히브리어
+    public String testStringFormatFlagFail3() {
+        return String.format("%+ d%n", 42);
+    }
 
-        Locale oldIndonesian = new Locale("in"); // 구식 인도네시아어
-        Locale newIndonesian = new Locale("id"); // 표준 인도네시아어
+    public String testStringFormatFlagFail4() {
+        return String.format("%#05x%n", 42);
+    }
 
-        Locale oldYiddish = new Locale("ji"); // 구식 이디시어
-        Locale newYiddish = new Locale("yi"); // 표준 이디시어
+    public String testStringFormatPrecisionSuccess(Object text) {
+        return String.format("%-5.2f", 3.14159);
+    }
 
-        Log.d("LocaleTest", "iw → " + oldHebrew.getLanguage() + " (should be 'iw')");
-        Log.d("LocaleTest", "he → " + newHebrew.getLanguage() + " (should be 'he')");
+    public String testStringFormatSuccess(Object text) {
+        return String.format("%d", 3.14);
+    }
 
-        Log.d("LocaleTest", "in → " + oldIndonesian.getLanguage() + " (should be 'in')");
-        Log.d("LocaleTest", "id → " + newIndonesian.getLanguage() + " (should be 'id')");
+    public String[] testArraysAsListToArrayFail() {
+        return (String[]) Arrays.asList("a", "b").toArray();
+    }
 
-        Log.d("LocaleTest", "ji → " + oldYiddish.getLanguage() + " (should be 'ji')");
-        Log.d("LocaleTest", "yi → " + newYiddish.getLanguage() + " (should be 'yi')");
+    public String[] testArraysAsListToArraySuccess() {
+        return Arrays.asList("a", "b").toArray(new String[0]);
+    }
+
+    public String testLocaleCodesFail() {
+        Locale hebrew = new Locale("iw");
+        Locale yiddish = new Locale("ji");
+        Locale indonesian = new Locale("in");
+
+        return "히브리어: " + hebrew.getLanguage() + "이디시어: " + yiddish.getLanguage() + "인도네시아어: " + indonesian.getLanguage();
+    }
+
+    public String testLocaleCodesSuccess() {
+        Locale hebrew = new Locale("he");
+        Locale yiddish = new Locale("yi");
+        Locale indonesian = new Locale("id");
+
+        return "히브리어: " + hebrew.getLanguage() + "이디시어: " + yiddish.getLanguage() + "인도네시아어: " + indonesian.getLanguage();
     }
 
     public void testRandomSequence() {
