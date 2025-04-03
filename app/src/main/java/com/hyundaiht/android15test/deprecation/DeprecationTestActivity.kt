@@ -93,7 +93,6 @@ class DeprecationTestActivity : ComponentActivity() {
                                     Log.i(tag, "Spatializer is available.")
                                 } else {
                                     Log.i(tag, "Spatializer is not available.")
-                                    return@runCatching
                                 }
 
                                 // 공간화 활성화 여부 확인
@@ -174,9 +173,9 @@ class DeprecationTestActivity : ComponentActivity() {
                                         })
                                 }
                             }.onSuccess { result ->
-                                Log.d(tag, "testStringFormatFail result = $result")
+                                Log.d(tag, "Spatializer 테스트 result = $result")
                             }.onFailure { error ->
-                                Log.d(tag, "testStringFormatFail error = $error")
+                                Log.d(tag, "Spatializer 테스트 error = $error")
                             }
                         }
                         Spacer(
